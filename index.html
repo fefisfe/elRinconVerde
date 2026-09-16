@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="http://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <title>El Rincón Verde</title>
+    <link rel="icon" type="image/png" href="./image/logo.png">
+</head>
+
+
+<div class="modal fade" id="modalCheckout" tabindex="-1" aria-labelledby="modalCheckoutLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalCheckoutLabel">Envío y Pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="formCheckout">
+
+        <h6 class="fw-bold mb-3">1. Datos de Envío</h6>
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+            <label class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" required placeholder="Ej: Juan Pérez">
+            </div>
+            <div class="col-md-6">
+            <label class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" required placeholder="Ej: 341 123456">
+            </div>
+            <div class="col-12">
+            <label class="form-label">Dirección de entrega</label>
+            <input type="text" class="form-control" required placeholder="Ej: Av. Pellegrini 1234, Piso 2 A">
+            </div>
+        </div>
+
+
+        <h6 class="fw-bold mb-3">2. Método de Pago</h6>
+        <div class="mb-3">
+            <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="metodoPago" id="pagoEfectivo" value="Efectivo" checked>
+            <label class="form-check-label" for="pagoEfectivo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+<path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+<path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z"/>
+</svg> Efectivo (10% de descuento)
+            </label>
+            </div>
+            <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="metodoPago" id="pagoTarjeta" value="Tarjeta">
+            <label class="form-check-label" for="pagoTarjeta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card-fill" viewBox="0 0 16 16">
+<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1"/>
+</svg> Tarjeta de Crédito / Débito
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="metodoPago" id="pagoMP" value="MercadoPago">
+            <label class="form-check-label" for="pagoMP">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bank2" viewBox="0 0 16 16">
+<path d="M8.277.084a.5.5 0 0 0-.554 0l-7.5 5A.5.5 0 0 0 .5 6h1.875v7H1.5a.5.5 0 0 0 0 1h13a.5.5 0 1 0 0-1h-.875V6H15.5a.5.5 0 0 0 .277-.916zM12.375 6v7h-1.25V6zm-2.5 0v7h-1.25V6zm-2.5 0v7h-1.25V6zm-2.5 0v7h-1.25V6zM8 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2M.5 15a.5.5 0 0 0 0 1h15a.5.5 0 1 0 0-1z"/>
+</svg> Trasnferencias
+            </label>
+            </div>
+        </div>
+
+        <hr>
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="fs-5 fw-bold">Total a pagar:</span>
+            <span id="totalCheckout" class="fs-4 fw-bold text-success">$0</span>
+        </div>
+
+        <div class="mt-4 text-end">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success">Confirmar Pedido</button>
+        </div>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+
+<body>
+    <nav class="navbar navbar-expand-lg mi-navbar">
+        <div class="container">
+        <a class="navbar-brand d-flex align-items-center fw-bold" href="#">
+            <img src="./image/logo.png" alt="Logo El Rincón Verde" width="40" height="40" class="me-2">El Rincón Verde
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                <a class="nav-link text-uppercase" href="#">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" href="#carruselPlantas">Plantas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" href="#">Macetas y Accesorios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" href="#">Fichas de Cuidados</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" href="#">Contacto</a>
+            </li>
+            </ul>
+        </div>
+        <div class="d-flex align-items-center gap-3 iconos-nav">
+            <a href="#" class="text-dark text-decoration-none" title="Buscar"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+</svg></a>
+            <a href="#" class="text-dark text-decoration-none position-relative contadorCarrito" data-bs-toggle="modal" data-bs-target="#modalCarrito" title="contadorCarrito"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+</svg><span id="contador" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" style="font-size: 0.6rem;">0</span>
+</a>
+            <a href="#" class="text-dark text-decoration-none" title="Mi Cuenta"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+</svg></a>
+        </div>
+        </div>
+    </nav>
+    <header class="hero-section text-center py-5">
+        <div class="container">
+        <h1 id="tituloPagina" class="display-4 fw-bold">El Rincón Verde</h1>
+        <p class="lead text-muted">Llená tu hogar de vida y frescura con nuestras plantas de interior.</p>
+        <a href="#carruselPlantas" id="botonCatalogo" class="btn btn-success btn-lg mt-3">Ver catálogo</a>
+        </div>
+    </header>
+    <section id="productos">
+        <div id="carruselPlantas" class="carousel slide carousel-dark" data-bs-ride="carousel">
+            <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="d-flex flex-column align-items-center text-center">
+                <img src="./image/PlantaMonstera.jpg" class="d-block w-50" alt="Planta Monstera">
+                <h3>Monstera</h3>
+                <p>$18.000</p>
+                <button class="btn btn-success btn-lg mt-3 btn-agregar" data-nombre="Monstera" data-precio="18000">Agregar al carrito</button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-flex flex-column align-items-center text-center">
+                <img src="./image/PlantaCalathea.jpg" class="d-block w-50" alt="Planta Calathea">
+                <h3>Calathea</h3>
+                <p>$12.000</p>
+                <button class="btn btn-success btn-lg mt-3 btn-agregar"data-nombre="Calathea" data-precio="12000">Agregar al carrito</button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-flex flex-column align-items-center text-center">
+                <img src="./image/PlantaFicus.jpg" class="d-block w-50" alt="Planta Ficus">
+                <h3>Ficus</h3>
+                <p>$10.500</p>
+                <button class="btn btn-success btn-lg mt-3 btn-agregar" data-nombre="Ficus" data-precio="10000">Agregar al carrito</button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-flex flex-column align-items-center text-center">
+                <img src="./image/PlantaPotus.jpg" class="d-block w-50" alt="Planta Potus">
+                <h3>Potus</h3>
+                <p>$88.000</p>
+                <button class="btn btn-success btn-lg mt-3 btn-agregar" data-nombre="Potus" data-precio="8800">Agregar al carrito</button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-flex flex-column align-items-center text-center">
+                <img src="./image/PlantaSanseiviera.jpg" class="d-block w-50" alt="Planta Sanseiviera">
+                <h3>Sanseiviera</h3>
+                <p>$21.100</p>
+                <button class="btn btn-success btn-lg mt-3 btn-agregar" data-nombre="Sanseiviera" data-precio="21000">Agregar al carrito</button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-flex flex-column align-items-center text-center">
+                <img src="./image/PlantaSuculenta.jpg" class="d-block w-50" alt="Planta Suculenta">
+                <h3>Suculenta</h3>
+                <p>$26.500</p>
+                <button class="btn btn-success btn-lg mt-3 btn-agregar" data-nombre="Suculenta" data-precio="26500">Agregar al carrito</button>
+                </div>
+            </div>
+
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carruselPlantas" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carruselPlantas" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+            </button>
+        </div>
+    </section>
+<footer class="mi-footer pt-5 pb-4">
+    <div class="container text-md-start">
+        <div class="row text-center text-md-start">
+        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h5 class="text-uppercase mb-4 fw-bold verde-titulo">El Rincón Verde</h5>
+            <p>Tu vivero online de confianza. Te acompañamos a transformar tu hogar con plantas de interior, macetas únicas y los mejores tips de cuidado.</p>
+        </div>
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h5 class="text-uppercase mb-4 fw-bold verde-titulo">Secciones</h5>
+            <p><a href="#" class="footer-link">Inicio</a></p>
+            <p><a href="#carruselPlantas" class="footer-link">Plantas</a></p>
+            <p><a href="#" class="footer-link">Macetas y Accesorios</a></p>
+            <p><a href="#" class="footer-link">Fichas de Cuidados</a></p>
+        </div>
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h5 class="text-uppercase mb-4 fw-bold verde-titulo">Contacto</h5>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+<path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+</svg> Rosario, Santa Fe</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
+<path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671"/>
+<path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791"/>
+</svg> contacto@elrinconverde.com</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
+<path d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0"/>
+</svg> +54 9 341 123-4567</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stopwatch-fill" viewBox="0 0 16 16">
+<path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07A7.001 7.001 0 0 0 8 16a7 7 0 0 0 5.29-11.584l.013-.012.354-.354.353.354a.5.5 0 1 0 .707-.707l-1.414-1.415a.5.5 0 1 0-.707.707l.354.354-.354.354-.012.012A6.97 6.97 0 0 0 9 2.071V1h.5a.5.5 0 0 0 0-1zm2 5.6V9a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1 0-1h3V5.6a.5.5 0 1 1 1 0"/>
+</svg> Lun a Sáb: 9:00 - 18:00 hs</p>
+        </div>
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h5 class="text-uppercase mb-4 fw-bold verde-titulo">Seguinos</h5>
+            <div class="d-flex justify-content-center justify-content-md-start gap-3 fs-4">
+                <a href="https://instagram.com" target="_blank" class="bi bi-instagram" title="Instagram" style="font-size: 2rem; color: lightgreen;"></a>
+                <a href="https://facebook.com" target="_blank"  class="bi bi-facebook" title="facebook" style="font-size: 2rem; color: lightgreen;"></a>
+                <a href="https://wa.me/5493411234567" target="_blank" class="bi bi-whatsapp" title="WhatsApp" style="font-size: 2rem; color: lightgreen;"></style=></a>
+            </div>
+            </div>
+    </div>
+        <hr class="mb-4 mt-4 text-muted">
+        <div class="row align-items-center">
+            <div class="col-md-7 col-lg-8 text-center text-md-start">
+            <p class="mb-0 text-muted fs-6">&copy; 2026 El Rincón Verde. Todos los derechos reservados.</p>
+        </div>
+        </div>
+    </div>
+</footer>
+
+
+<div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="modalCarritoLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalCarritoLabel">Tu Carrito de Compras</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+
+        <ul id="listaCarrito" class="list-group mb-3">
+        <li class="list-group-item text-center text-muted">El carrito está vacío</li>
+        </ul>
+        <div class="d-flex justify-content-between align-items-center">
+        <span class="fw-bold fs-5">Total:</span>
+        <span id="totalCarrito" class="fw-bold fs-5 text-success">$0</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+<button type="button" class="btn btn-outline-danger me-auto" id="btnVaciarCarrito">Vaciar carrito</button>
+
+<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir comprando</button>
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCheckout">Finalizar compra</button>
+</div>
+    </div>
+</div>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

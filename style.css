@@ -1,0 +1,112 @@
+
+body {
+    background-color: #93e5c2;
+    color: #2d4a3e;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+
+
+.mi-navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 12px 0;
+}
+
+
+.mi-navbar .navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem !important;
+}
+
+
+.mi-navbar .nav-link {
+    color: #555555;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0 !important;
+    transition: color 0.3s ease;
+}
+
+.mi-navbar .nav-link:hover {
+    color: #2e7d32;
+}
+
+
+.iconos-nav {
+    font-size: 1.1rem;
+}
+
+
+
+.hero-section {
+    background-color: #4dbda3;
+    border-bottom: 2px solid #c8e0be;
+    margin-bottom: 2rem;
+}
+
+
+#carruselPlantas {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+}
+
+
+.carousel-item img {
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+.mi-footer {
+    background-color: #ffffff;
+    color: #555555;
+    border-top: 1px solid #e0e0e0;
+}
+
+.verde-titulo {
+    color: #2e7d32;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.footer-link {
+    color: #666666;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: #2e7d32;
+    text-decoration: underline;
+}
+
+.redes-icon {
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.redes-icon:hover {
+    transform: scale(1.2);
+}
+
+
+#tituloPagina, #botonCatalogo {
+    transition: all 0.3s ease;
+}
+
+.titulo-hover {
+    color: #39a13e;
+}
+
+.boton-hover {
+    background-color: #1b5e20;
+    color: #ffffff;
+}
